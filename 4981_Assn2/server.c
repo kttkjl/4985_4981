@@ -270,7 +270,7 @@ int client(int msg_qid, char *fname, int priority)
       {
         ++complete_msg;
         printf("inc buffer filled: %lu\n", complete_msg);
-        curr_bytes_recv = MAXMESSAGEDATA - curr_bytes_recv;
+        curr_bytes_recv = curr_bytes_recv - MAXMESSAGEDATA;
       }
       if (imsg.mesg_priority < 0)
       {
