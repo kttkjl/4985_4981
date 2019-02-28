@@ -462,6 +462,11 @@ int server(int msg_qid)
   return 0;
 }
 
+void usage()
+{
+  printf("Run with options: -t server OR -t client -f filename -p int_priority\n");
+}
+
 /*------------------------------------------------------------------------------------
   --	FUNCTION:		main
   --
@@ -529,17 +534,28 @@ int main(int argc, char *argv[])
 
   if (strcmp(srv_cln, "server") == 0)
   {
+    if (argc != 3)
+    {
+      usage();
+      return 1;
+    }
     printf("%s Mode\n", srv_cln);
     server(msg_qid);
     printf("server proc %d finished\n", getpid());
     return 0;
   }
 
-  if (strcmp(srv_cln, "client") == 0)
+  if ((strcmp(srv_cln, "client") == 0) && (argc == 7))
   {
+    if (argc != 7)
+    {
+      usage();
+      return 1;
+    }
     printf("%s Mode\n", srv_cln);
     client(msg_qid, fname, priority);
     exit(0);
   }
+  usage();
   return 0;
 }
